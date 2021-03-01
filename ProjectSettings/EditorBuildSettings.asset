@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Image Tracking 3D Animation.unity
+    guid: 82cc1c34a9ac14e52aa0f28415f5d360
   m_configObjects: {}
