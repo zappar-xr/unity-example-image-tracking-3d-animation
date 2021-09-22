@@ -29,7 +29,26 @@ public class BuildScript : EditorWindow {
     BuildPipeline.BuildPlayer (GetScenes (), "./ios-dist", BuildTarget.iOS, BuildOptions.None);
   }
   static void WebGL () {
-    BuildPipeline.BuildPlayer (GetScenes (), "./webgl-dist", BuildTarget.WebGL, BuildOptions.None);
+        // Other Settings
+        PlayerSettings.SetScriptingBackend(BuildTargetGroup.WebGL, ScriptingImplementation.IL2CPP); //default is IL2CPP
+        PlayerSettings.stripEngineCode = true;
+
+        //Publishing settings
+        PlayerSettings.WebGL.exceptionSupport = WebGLExceptionSupport.None;
+        PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Brotli;
+        PlayerSettings.WebGL.dataCaching = true;
+
+        //Build Settings
+        EditorUserBuildSettings.development = false;
+#if UNITY_2020_1_OR_NEWER
+            PlayerSettings.WebGL.decompressionFallback = true;
+            PlayerSettings.WebGL.template = "PROJECT:Zappar";
+#elif UNITY_2019_1_OR_NEWER
+        PlayerSettings.WebGL.template = "PROJECT:Zappar2019";
+#else
+            Debug.LogError("Please upgrade to newer versions of Unity");
+#endif
+        BuildPipeline.BuildPlayer (GetScenes (), "./webgl-dist", BuildTarget.WebGL, BuildOptions.None);
   }
   static void StandaloneWindows () {
     BuildPipeline.BuildPlayer (GetScenes (), "./windows-dist/build.exe", BuildTarget.StandaloneWindows, BuildOptions.None);
@@ -40,7 +59,15 @@ public class BuildScript : EditorWindow {
   }
 
   static string[] GetScenes () {
-    return EditorBuildSettings.scenes.Where (s => s.enabled).Select (s => s.path).ToArray ();
+        string[] scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
+        if (scenes?.Length == 0)
+        {
+            //throw new System.Exception("No scenes found in build settings!");
+            Debug.Log("No scenes found! Adding available scenes from Assets/Scenes Dir");
+            AddScenesToBuild();
+            scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
+        }
+        return scenes;
   }
 
   static void AddScenesToBuild () {
