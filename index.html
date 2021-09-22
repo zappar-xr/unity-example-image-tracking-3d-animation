@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>image-tracking-3d-animation</title>
-    <script type="text/javascript" src="https://libs.zappar.com/zappar-cv/0.3.8/zappar-cv.js"></script>
+    <script type="text/javascript" src="https://libs.zappar.com/zappar-cv/0.3.11/zappar-cv.js"></script>
     <style>
         html {
             box-sizing: border-box;
@@ -24,14 +24,21 @@
             background: #444;
         }
 
+        html, body {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+        }
+
         #gameContainer {
             width: 100vw;
             height: 100vh;
+            position: fixed;
         }
 
         canvas {
             width: 100%;
             height: 100%;
+            position: fixed;
             display: block;
         }
 
@@ -79,12 +86,26 @@
 
 <script src="Build/UnityLoader.js"></script>
 <script>
-    var gameInstance = UnityLoader.instantiate("gameContainer", "Build/webgl-dist.json", { onProgress: UnityProgress });
+    var db = indexedDB.open("dummy_indexdb", 1); // iOS 14.6 fix; the call to open indexdb hangs forever otherwise
+    window.zappar=ZCV.initialize();
+    const loader = document.querySelector("#loader");
+    var gameInstance; //= UnityLoader.instantiate("gameContainer", "Build/webgl-dist.json", { onProgress: UnityProgress }); 
+    
+    WaitForZCVLoad();
+
+    function WaitForZCVLoad(){            
+        if (zappar.loaded()) { 
+            //loader.style.display = "none";  
+            gameInstance= UnityLoader.instantiate("gameContainer", "Build/webgl-dist.json", { onProgress: UnityProgress }); 
+            return; 
+        }
+        setTimeout(WaitForZCVLoad, 500);
+    }
+
     function UnityProgress(gameInstance, progress) {
         if (!gameInstance.Module) {
             return;
         }
-        const loader = document.querySelector("#loader");
         if (!gameInstance.progress) {
             const progress = document.querySelector("#loader .progress");
             progress.style.display = "block";
@@ -94,9 +115,11 @@
         if (progress === 1 && !gameInstance.removeTimeout) {
             gameInstance.removeTimeout = setTimeout(function () {
                 loader.style.display = "none";
+                //WaitForZCVLoad();
             }, 0); // optionally set a delay in here.
         }
     }
+
 </script>
 
 </html>
