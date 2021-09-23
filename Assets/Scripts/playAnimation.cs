@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playAnimation : MonoBehaviour
+public class PlayAnimation : MonoBehaviour
 {
 
   public AnimationClip jump;
   Animation anim;
 
-  // Start is called before the first frame update
-  void Start()
+  void Awake()
   {
     anim = GetComponent<Animation>();
     anim.clip = jump;
   }
-  public void playJumpAnimation()
+
+  public void PlayJumpAnimation()
   {
     anim.Play();
   }
