@@ -4,10 +4,13 @@
 #
 Library
 /[Ll]ibrary/
+[Tt]emp/
 /[Tt]emp/
+[Oo]bj/
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
+[Ll]ogs/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
@@ -47,6 +50,7 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+*.vsconfig
 
 # Unity3D generated meta files
 *.pidb.meta
