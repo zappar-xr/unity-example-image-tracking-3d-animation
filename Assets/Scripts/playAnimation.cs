@@ -1,21 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayAnimation : MonoBehaviour
 {
+    [SerializeField]
+    private Animation m_animation;
+    [SerializeField]
+    private AnimationClip m_jumpClip;
 
-  public AnimationClip jump;
-  Animation anim;
+    void Start()
+    {
+        if (m_animation != null)
+            m_animation.clip = m_jumpClip;
+    }
 
-  void Awake()
-  {
-    anim = GetComponent<Animation>();
-    anim.clip = jump;
-  }
-
-  public void PlayJumpAnimation()
-  {
-    anim.Play();
-  }
+    public void PlayJumpAnimation()
+    {
+        if (m_animation != null && m_animation.gameObject.activeSelf)
+            m_animation.Play();
+    }
 }
