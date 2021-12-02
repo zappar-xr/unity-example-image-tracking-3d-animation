@@ -678,7 +678,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1711588852}
-        m_MethodName: PlayJumpAnimation
+        m_MethodName: PlayAnimation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -687,7 +687,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 1
+        m_CallState: 2
 --- !u!114 &1711588850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,12 +734,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1711588847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc15f4b25cbea4de68f5336646c9ea3c, type: 3}
+  m_Script: {fileID: 11500000, guid: d5bebff3a441b604fa3073f7d6bd399b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_animation: {fileID: 2223639932051544484}
-  m_jumpClip: {fileID: -203655887218126122, guid: ad8f50b760ccd49cea365f8a39f2767b,
-    type: 3}
+  m_clip: {fileID: -203655887218126122, guid: ad8f50b760ccd49cea365f8a39f2767b, type: 3}
 --- !u!21 &1851354101
 Material:
   serializedVersion: 6

@@ -4,6 +4,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using Unity.EditorCoroutines.Editor;
+using Zappar.Editor;
 
 public class ImportZCV : EditorWindowSingleton<ImportZCV>
 {
@@ -30,6 +31,11 @@ public class ImportZCV : EditorWindowSingleton<ImportZCV>
         string packageId = "https://github.com/zappar-xr/universal-ar-unity.git";
         s_importRequest = UnityEditor.PackageManager.Client.Add(packageId);
         EditorCoroutineUtility.StartCoroutine(CheckImportStatus(packageId), Instance);
+    }
+
+    public static void UpdateProjectSettings()
+    {
+        ZapparMenu.ZapparPublishSettings();
     }
 
     public static IEnumerator CheckImportStatus(string package)
