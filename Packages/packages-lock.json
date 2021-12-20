@@ -30,15 +30,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.ide.visualstudio": {
-      "version": "2.0.11",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.test-framework": "1.1.9"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.ide.vscode": {
       "version": "1.2.4",
       "depth": 0,
@@ -94,7 +85,7 @@
       "dependencies": {
         "com.unity.editorcoroutines": "1.0.0"
       },
-      "hash": "d1f34204f1ec30d88f2af4f4189e97855d56ca65"
+      "hash": "5bd7c2d1ff56d054ba6e9fa25e13b68ac04607b5"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
