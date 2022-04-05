@@ -8,7 +8,7 @@ For more information, check out the documentation page for [Zappar for Unity](ht
 
 Scan the QR code below using your native camera app or QR code reader to view the example:
 ​
-![Preview QR Code"](preview-qr-code.png)
+![Preview QR Code"](preview-qr-code-beta.png)
 
 
 ## Prerequisites
