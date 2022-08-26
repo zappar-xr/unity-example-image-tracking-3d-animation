@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.unity.collab-proxy": {
-      "version": "1.14.1",
+      "version": "1.14.18",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -31,14 +31,14 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.vscode": {
-      "version": "1.2.4",
+      "version": "1.2.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
-      "version": "1.1.29",
+      "version": "1.1.31",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -79,13 +79,13 @@
       }
     },
     "com.zappar.uar": {
-      "version": "https://github.com/zappar-xr/universal-ar-unity.git",
+      "version": "https://github.com/zappar-xr/universal-ar-unity.git#beta",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.editorcoroutines": "1.0.0"
       },
-      "hash": "5bd7c2d1ff56d054ba6e9fa25e13b68ac04607b5"
+      "hash": "841481e80d86f2c69a7bdab9ae11d69606552841"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
