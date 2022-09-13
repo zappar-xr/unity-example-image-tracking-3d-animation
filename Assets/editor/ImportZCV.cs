@@ -5,26 +5,13 @@ using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 using Zappar.Editor;
 
-public class ImportZCV : EditorWindowSingleton<ImportZCV>
+public class ImportZCV
 {
 
     private static AddRequest s_importRequest = null;
     private static ListRequest s_listRequest = null;
 
     public const string PackageId = "https://github.com/zappar-xr/universal-ar-unity.git";
-
-    [MenuItem("Window/Zappar - UAR package")]
-    private static void ShowWindow()
-    {
-        ImportZCV window = GetWindow<ImportZCV>();
-        window.titleContent = new GUIContent("Zappar - UAR package");
-        window.Show();
-    }
-
-    private void OnGUI()
-    {
-        if (GUILayout.Button("Import Universal AR github package")) Import();
-    }
 
     public static void Import()
     {
