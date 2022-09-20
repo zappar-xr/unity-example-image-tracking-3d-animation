@@ -7,19 +7,21 @@ using UnityEngine;
 
 public class BuildScript : EditorWindow {
 
-  [MenuItem ("Window/Zappar - Test Exporter")]
+  [MenuItem ("Window/Zappar - Build tests")]
   private static void ShowWindow () {
     BuildScript window = GetWindow<BuildScript> ();
     window.titleContent = new GUIContent ("Zappar Test Exporter");
     window.Show ();
   }
   private void OnGUI () {
+    if (GUILayout.Button("Import Universal AR github package")) ImportZCV.Import();
+    if (GUILayout.Button ("Update editor settings for build")) ImportZCV.UpdateProjectSettings ();
+    if (GUILayout.Button ("Add scenes to build")) AddScenesToBuild ();
     if (GUILayout.Button ("Build Android")) Android ();
     if (GUILayout.Button ("Build iOS")) iOS ();
     if (GUILayout.Button ("Build WebGL")) WebGL ();
     if (GUILayout.Button ("Build StandaloneOSX")) StandaloneOSX ();
     if (GUILayout.Button ("Build StandaloneWindows")) StandaloneWindows ();
-    if (GUILayout.Button ("Add scenes to build")) AddScenesToBuild ();
   }
 
   static void Android () {

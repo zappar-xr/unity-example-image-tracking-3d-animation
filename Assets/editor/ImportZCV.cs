@@ -1,69 +1,82 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEditor;
 using UnityEngine;
-using Unity.EditorCoroutines.Editor;
+using UnityEditor.PackageManager;
+using UnityEditor.PackageManager.Requests;
 using Zappar.Editor;
 
-public class ImportZCV : EditorWindowSingleton<ImportZCV>
+public class ImportZCV
 {
 
-    private static UnityEditor.PackageManager.Requests.AddRequest s_importRequest = null;
+    private static AddRequest s_importRequest = null;
+    private static ListRequest s_listRequest = null;
 
-    [MenuItem("Window/Zappar - UAR package")]
-    private static void ShowWindow()
-    {
-        ImportZCV window = GetWindow<ImportZCV>();
-        window.titleContent = new GUIContent("Zappar - UAR package");
-        window.Show();
-    }
-
-    private void OnGUI()
-    {
-        if (GUILayout.Button("Import ZCV package")) Import();
-    }
+    public const string PackageId = "https://github.com/zappar-xr/universal-ar-unity.git";
 
     public static void Import()
     {
-        Debug.Log("Importing UAR package...");
+        Debug.Log("[Universal AR ]: Checking package lists ...");
+        s_listRequest = UnityEditor.PackageManager.Client.List();
+        EditorApplication.update += PackageProgress;
+    }
 
-        string packageId = "https://github.com/zappar-xr/universal-ar-unity.git";
-        s_importRequest = UnityEditor.PackageManager.Client.Add(packageId);
-        EditorCoroutineUtility.StartCoroutine(CheckImportStatus(packageId), Instance);
+    static void PackageProgress()
+    {
+        if (s_listRequest != null)
+        {
+            if (s_listRequest.IsCompleted)
+            {
+                if (s_listRequest.Status == StatusCode.Success)
+                {
+                    string pack = PackageId;
+                    foreach (var p in s_listRequest.Result)
+                    {
+                        if (p.packageId.Contains(PackageId))
+                        {
+                            Debug.Log("[Universal AR ]: Reimporting package id: " + p.packageId);
+                            pack = p.packageId;
+                        }
+                    }
+                    s_importRequest = Client.Add(pack);
+                    ImportPackageStarted(pack);
+                    s_listRequest = null;
+                    return;
+                }
+                else if (s_listRequest.Status >= StatusCode.Failure)
+                {
+                    Debug.Log("[Universal AR ]: Failed checking list. Error: " + s_listRequest.Error.message);
+                }
+                EditorApplication.update -= PackageProgress;
+                s_listRequest = null;
+            }
+        }
+
+        if(s_importRequest != null)
+        {
+            if (s_importRequest.IsCompleted)
+            {
+                if (s_importRequest.Status == StatusCode.Failure)
+                {
+                    ImportPackageFailed(s_importRequest.Result.packageId, s_importRequest.Error.message);
+                }
+                else if (s_importRequest.Status == StatusCode.Success)
+                {
+                    ImportPackageCompleted(s_importRequest.Result.packageId);
+                }
+                EditorApplication.update -= PackageProgress;
+                s_importRequest = null;
+            }
+        }
+
+        if(s_importRequest == null && s_listRequest==null)
+        {
+            EditorApplication.update -= PackageProgress;
+        }
     }
 
     public static void UpdateProjectSettings()
     {
         ZapparMenu.ZapparPublishSettings();
-    }
-
-    public static IEnumerator CheckImportStatus(string package)
-    {
-        if (s_importRequest == null)
-        {
-            ImportPackageFailed(package, "failed to request add package");
-            yield break;
-        }
-
-        ImportPackageStarted(package);
-
-        while (s_importRequest.Status == UnityEditor.PackageManager.StatusCode.InProgress)
-        {
-            yield return null;
-        }
-
-        if (s_importRequest.Status == UnityEditor.PackageManager.StatusCode.Failure)
-        {
-            ImportPackageFailed(package, s_importRequest.Error.message);
-            yield break;
-        }
-
-        if (s_importRequest.Status == UnityEditor.PackageManager.StatusCode.Success)
-        {
-            ImportPackageCompleted(package);
-        }
-        yield break;
     }
 
     static void ImportPackageCompleted(string packageName)
