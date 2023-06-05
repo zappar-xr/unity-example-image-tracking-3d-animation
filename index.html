@@ -6,6 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="favicon.ico">
     <title>image-tracking-3d-animation</title>
     <style>
         html {
@@ -75,7 +76,7 @@
 </head>
 
 <body>
-    <script type="text/javascript" src="https://libs.zappar.com/zappar-cv/2.0.0/zappar-cv.js"></script>
+    <script type="text/javascript" src="https://libs.zappar.com/zappar-cv/2.1.2/zappar-cv.js"></script>
 
     <div id="gameContainer"></div>
     <div id="loader">
@@ -84,19 +85,19 @@
         </div>
     </div>
 
-    <script src="Build/UnityLoader.js"></script>
+    <script src="Build/20986a4044eaa8551db6be07233cc1d9.js"></script>
     <script>
         var db = indexedDB.open("dummy_indexdb", 1); // iOS 14.6 fix; the call to open indexdb hangs forever otherwise
         window.zappar=ZCV.initialize();
         const loader = document.querySelector("#loader");
-        var gameInstance; //= UnityLoader.instantiate("gameContainer", "Build/webgl-dist.json", { onProgress: UnityProgress }); 
+        var gameInstance; //= UnityLoader.instantiate("gameContainer", "Build/bdfe1746c7cf5bff6145d0056c60f499.json", { onProgress: UnityProgress }); 
 
         window.zappar.permission_request_ui_promise().then(WaitForZCVLoad);
 
         function WaitForZCVLoad(){            
             if (zappar.loaded()) { 
                 //loader.style.display = "none";  
-                gameInstance= UnityLoader.instantiate("gameContainer", "Build/webgl-dist.json", { onProgress: UnityProgress }); 
+                gameInstance= UnityLoader.instantiate("gameContainer", "Build/bdfe1746c7cf5bff6145d0056c60f499.json", { onProgress: UnityProgress }); 
                 return; 
             }
             setTimeout(WaitForZCVLoad, 500);
