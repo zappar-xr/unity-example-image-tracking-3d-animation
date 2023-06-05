@@ -85,7 +85,7 @@
       "dependencies": {
         "com.unity.editorcoroutines": "1.0.0"
       },
-      "hash": "6025ba06573df8910bd751288e6b1a1f6adbb196"
+      "hash": "8cc7c5d4b64983f02451298e2cea7e486bdc9032"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
